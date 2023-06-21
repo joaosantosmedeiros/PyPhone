@@ -1,0 +1,7 @@
+print("=====================================")
+print("==== M E N U   P R I N C I P A L ====")
+print("=====================================")
+print('     1 - Cadastro de usuários')
+print('     2 - Cadastro de funcionários')
+print('     3 - Cadastro de produtos')
+print('     0 - Finalizar')
