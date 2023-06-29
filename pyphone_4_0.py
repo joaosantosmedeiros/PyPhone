@@ -33,7 +33,7 @@ def menu_secundario(name):
 
 
 while True:
-    clients = []
+    clients = {}
     employees = []
     cellphones = {}
 
@@ -58,10 +58,10 @@ while True:
                 username = input('\nDigite o nome do cliente: ')
                 email = input('Digite o email do cliente: ')
                 password = input('Digite a senha do cliente: ')
-                print('\n', Clients.createClient(username=username, email=email, password=password, list=clients), '\n')
+                print(f'\n{Clients.createClient(username=username, email=email, password=password, list=clients)}\n')
 
             elif option == '2':
-                print(Clients.readAllClients(list=clients))
+                print(f'\n{Clients.readAllClients(list=clients)}')
 
             elif option == '3':
                 email = input('Digite o email: ')
@@ -74,19 +74,11 @@ while True:
                     # Não é mostrado a senha por questões de segurança
             
             elif option == '4':
-                email = input('Digite o email a ser buscado: ')
-                result = Clients.readOneClient(email=email, list=clients)
-                if result == 'Cliente não existente.':
-                    print(result)
-                else:
-                    username = input('\nDigite seu nome: ')
-                    email = input('Digite seu email: ')
-                    password = input('Digite sua senha: ')
+                searchEmail = input('Digite o email do usuário que deseja alterar: ')
 
-                    updated_result = Clients.updateClient(
-                        username=username, email=email, password=password, list=clients, list_index=result['index'])
-                    print('\n', updated_result, '\n')
-            
+                result = Clients.updateClient(self=Clients, searchEmail=searchEmail, list=clients)
+                print(f'\n{result}\n')
+
             elif option == '5':
                 email = input('Insira o email: ')
                 print('\n', Clients.deleteClient(self=Clients, email=email, list=clients), '\n')
@@ -144,7 +136,7 @@ while True:
         while True:
             menu_secundario('celulares')
             option = input('\nEscolha sua opção: ')
-            
+
             if option == '0':
                 break
             
