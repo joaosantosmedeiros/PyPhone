@@ -34,7 +34,7 @@ def menu_secundario(name):
 
 while True:
     clients = {}
-    employees = []
+    employees = {}
     cellphones = {}
 
     menu_principal()
@@ -109,24 +109,16 @@ while True:
                     print('\n', result, '\n')
                 else:
                     print(f'\nUsername: {result["value"][0]}')
-                    print(f'Email: {result["value"][1]}')
-                    print(f'Contato: {result["value"][2]}\n')
+                    print(f'Email: {result["email"]}')
+                    print(f'Contato: {result["value"][1]}\n')
                     # Não é mostrado a senha por questões de segurança
             
             elif option == '4':
-                email = input('Digite o email a ser buscado: ')
-                result = Employees.readOneEmployee(email=email, list=employees)
-                if result == 'Funcionário não existente.':
-                    print(result)
-                else:
-                    username = input('\nDigite seu nome: ')
-                    email = input('Digite seu email: ')
-                    contact = input('Digite seu contato: ')
-                    password = input('Digite sua senha: ')
+                searchEmail = input('Digite o email do funcionário que deseja alterar: ')
 
-                    updated_result = Employees.updateEmployee( username=username, email=email, contact=contact, password=password, list=employees, list_index=result['index'])
-                    print('\n', updated_result, '\n')
-            
+                result = Employees.updateEmployee(self=Employees, searchEmail=searchEmail, list=employees)
+                print(f'\n{result}\n')            
+
             elif option == '5':
                 email = input('Insira o email: ')
                 print('\n', Employees.deleteEmployee(self=Employees, email=email, list=employees), '\n')
