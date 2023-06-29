@@ -181,4 +181,4 @@ class Cellphones:
             return result
         
         list.pop(result)
-        return 'Cliente deletado com sucesso.'
+        return 'Celular deletado com sucesso.'
