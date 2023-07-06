@@ -25,7 +25,7 @@ def readOneClient(email, list:dict):
                     'email': key
                 }
         
-        return('Cliente não existente.')
+    return('Cliente não existente.')
 
 def updateClient(searchEmail, list:dict):
     result = readOneClient(email=searchEmail, list=list)
@@ -100,3 +100,9 @@ def deleteCellphone(id, list:dict):
     
     list.pop(result)
     return 'Celular deletado com sucesso.'
+
+
+# Vendas
+def createOrder(email, list:dict, cellphones:dict, clients:dict):
+    client = readOneClient(email=email, list=clients)
+    return client

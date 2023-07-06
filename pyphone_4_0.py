@@ -1,6 +1,7 @@
 from os import system
 from functions import createClient, readAllClients, readOneClient, updateClient, deleteClient
 from functions import createCellphone, readOneCellphone, readAllCellphones, getKey, updateCellphone, deleteCellphone
+from functions import createOrder
 
 def menu_principal():
     print("===================================================")
@@ -26,6 +27,7 @@ def menu_secundario(name):
     print(f"     3 - Pesquisar {name.capitalize()}")
     print(f"     4 - Editar {name.capitalize()}")
     print(f"     5 - Apagar {name.capitalize()}")
+    print(f"     6 - Salvar em arquivo")
     print(f"     0 - Voltar ao Menu Principal")
     print("====================================================")
 
@@ -79,6 +81,11 @@ while True:
             elif option == '5':
                 email = input('Insira o email: ')
                 print('\n', deleteClient(email=email, list=clients), '\n')
+            
+            elif option == '6':
+                with open('clients.txt','w') as f:
+                    f.write(readAllClients(list=clients))
+
             input("Pressione qualquer tecla para continuar")
        
     elif opc == '2':
@@ -114,6 +121,11 @@ while True:
             elif option == '5':
                 id = input('Digite o id do celular: ')
                 print(f'\n{deleteCellphone(id=id, list=cellphones)}\n')
+
+            elif option == '6':
+                with open('cellphones.txt','w') as f:
+                    f.write(readAllCellphones(list=cellphones))
+
             input("Tecle ENTER para continuar")
 
     elif opc == '3':
@@ -127,7 +139,7 @@ while True:
             elif option == '1':
                 email = input('\nDigite o email do cliente:')
                 id = input('Digite o id do produto')
-                print('\n', createCellphone(id=id, clientEmail=email, list=cellphones), '\n')
+                print('\n', createOrder(email=email, list=orders, cellphones=cellphones, clients=clients), '\n')
             
             elif option == '2':
                 print(f'\n{readAllCellphones(cellphones)}\n')
