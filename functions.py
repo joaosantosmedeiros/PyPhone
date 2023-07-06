@@ -52,15 +52,10 @@ def deleteClient( email, list:dict):
 # Celulares
 def getKey(list:dict, id):
     if len(list) > 0:
-        cont = 0
         for key in list:
             if str(key) == id:
-                cont += 1
                 return key
-        if cont == 0:
-            return('Celular não existente.')
-    else:
-        return('Celular não existente.')
+    return('Celular não existente.')
 
 def createCellphone(name, price, list:dict):
     list[randint(0, 999999)] = [name, price]
@@ -72,20 +67,14 @@ def readAllCellphones(list:dict):
         for key in list:
             result += (f'Id: {key} || Nome: {list[key][0]} || Preço: R${list[key][1]}\n')
         return result
-    else:
-        return ''
+    return ''
 
 def readOneCellphone(list:dict, id):
     if len(list) > 0:
-        cont = 0
         for key in list:
             if str(key) == id:
-                cont += 1
                 return(f'Id: {key}\nNome:{list[key][0]}\nPreço: R${list[key][1]}')
-        if cont == 0:
-            return('Celular não existente.')
-    else:
-        return('Celular não existente.')
+    return('Celular não existente.')
 
 def updateCellphone(id, name, price, list:dict):
     id = int(id)
@@ -153,10 +142,8 @@ def readAllOrders(list:dict):
 
 def readOneOrder(list:dict, id):
     if len(list) > 0:
-        cont = 0
         for key in list:
             if str(key) == id:
-                cont += 1
                 return(f'Id: {key}\nEmail: {list[key][0]}\nProduto: {list[key][1]}')
     return('Venda não existente.')
 
@@ -188,9 +175,7 @@ def updateOrder(id, email, productId, list:dict):
         return 'Produto nao encontrado.'
     cellphonesFile.close()
 
-    
     list[id] = [email, productId]
-
     return 'Venda atualizado com sucesso.'
 
 def deleteOrder(id, list:dict):

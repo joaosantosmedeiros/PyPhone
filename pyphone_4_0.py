@@ -112,7 +112,7 @@ while True:
                 id = input('Digite o id: ')
                 result = getKey(list=cellphones, id=id)
                 if result == 'Celular não existente.':
-                    print(result)
+                    print(f'\n{result}\n')
                 else:
                     name = input('Digite o nome: ')
                     price = input('Digite o preço: ')
@@ -153,7 +153,7 @@ while True:
                 id = input('Digite o id: ')
                 result = getOrderKey(list=orders    , id=id)
                 if result == 'Venda não existente.':
-                    print(result)
+                    print(f'\n{result}\n')
                 else:
                     email = input('Digite o email: ')
                     productId = input('Digite o id do produto: ')
