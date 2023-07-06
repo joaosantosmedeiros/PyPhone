@@ -127,28 +127,28 @@ while True:
             elif option == '1':
                 email = input('\nDigite o email do cliente:')
                 id = input('Digite o id do produto')
-                print('\n', Cellphones.createOrder(id=id, clientEmail=email, list=cellphones), '\n')
+                print('\n', createCellphone(id=id, clientEmail=email, list=cellphones), '\n')
             
             elif option == '2':
-                print(f'\n{Cellphones.readAllCellphones(cellphones)}\n')
+                print(f'\n{readAllCellphones(cellphones)}\n')
             
             elif option == '3':
                 id = input('Digite o id do celular: ')
-                print(f'\n{Cellphones.readOneCellphone(id=id, list=cellphones)}\n')
+                print(f'\n{readOneCellphone(id=id, list=cellphones)}\n')
             
             elif option == '4':
                 id = input('Digite o id: ')
-                result = Cellphones.getKey(list=cellphones, id=id)
+                result = getKey(list=cellphones, id=id)
                 if result == 'Celular não existente.':
                     print(result)
                 else:
                     name = input('Digite o nome: ')
                     price = input('Digite o preço: ')
-                    print(f'\n{Cellphones.updateCellphone(self=Cellphones, id=id, name=name, price=price, list=cellphones)}\n')
+                    print(f'\n{updateCellphone(id=id, name=name, price=price, list=cellphones)}\n')
             
             elif option == '5':
                 id = input('Digite o id do celular: ')
-                print(f'\n{Cellphones.deleteCellphone(self=Cellphones, id=id, list=cellphones)}\n')
+                print(f'\n{deleteCellphone(id=id, list=cellphones)}\n')
             input("Tecle ENTER para continuar")
 
     elif opc == '4':
