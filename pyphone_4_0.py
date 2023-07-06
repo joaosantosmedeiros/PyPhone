@@ -162,7 +162,11 @@ while True:
             elif option == '5':
                 id = input('Digite o id do pedido: ')
                 print(f'\n{deleteOrder(id=id, list=orders)}\n')
-      
+
+            elif option == '6':
+                with open('orders.txt','w') as f:
+                    f.write(readAllOrders(list=orders))
+                print('Vendas salvas com sucesso!')    
             input("Tecle ENTER para continuar")
 
     elif opc == '4':

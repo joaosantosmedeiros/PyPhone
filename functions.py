@@ -175,6 +175,7 @@ def updateOrder(id, email, productId, list:dict):
         return 'Produto nao encontrado.'
     cellphonesFile.close()
 
+
     list[id] = [email, productId]
     return 'Venda atualizado com sucesso.'
 
