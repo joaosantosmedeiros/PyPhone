@@ -1,19 +1,15 @@
 from os import system
-from functions import Clients, Employees, Cellphones
-
-# O PyPhone é um sistema de gerenciamento de uma loja de celulares, onde é possível cadastrar
-# funcionários, clientes e celulares.
-
+from functions import createClient, readAllClients, readOneClient, updateClient, deleteClient
+from functions import createCellphone, readOneCellphone, readAllCellphones, getKey, updateCellphone, deleteCellphone
 
 def menu_principal():
     print("===================================================")
     print("\tM E N U   P R I N C I P A L")
     print("===================================================")
     print('     1 - Cadastro de Clientes')
-    print('     2 - Cadastro de Funcionários')
-    print('     3 - Cadastro de Celulares')
-    print('     4 - Cadastro de Vendas')
-    print('     5 - Informações')
+    print('     2 - Cadastro de Celulares')
+    print('     3 - Cadastro de Vendas')
+    print('     4 - Informações')
     print('     0 - Finalizar')
     print("===================================================")
 
@@ -35,8 +31,8 @@ def menu_secundario(name):
 
 while True:
     clients = {}
-    employees = {}
     cellphones = {}
+    orders = {}
 
     menu_principal()
 
@@ -59,14 +55,14 @@ while True:
                 username = input('\nDigite o nome do cliente: ')
                 email = input('Digite o email do cliente: ')
                 password = input('Digite a senha do cliente: ')
-                print(f'\n{Clients.createClient(username=username, email=email, password=password, list=clients)}\n')
+                print(f'\n{createClient(username=username, email=email, password=password, list=clients)}\n')
 
             elif option == '2':
-                print(f'\n{Clients.readAllClients(list=clients)}')
+                print(f'\n{readAllClients(list=clients)}')
 
             elif option == '3':
                 email = input('Digite o email: ')
-                result = (Clients.readOneClient(email=email, list=clients))
+                result = (readOneClient(email=email, list=clients))
                 if result == 'Cliente não existente.':
                     print('\n', result, '\n')
                 else:
@@ -77,55 +73,15 @@ while True:
             elif option == '4':
                 searchEmail = input('Digite o email do usuário que deseja alterar: ')
 
-                result = Clients.updateClient(self=Clients, searchEmail=searchEmail, list=clients)
+                result = updateClient(searchEmail=searchEmail, list=clients)
                 print(f'\n{result}\n')
 
             elif option == '5':
                 email = input('Insira o email: ')
-                print('\n', Clients.deleteClient(self=Clients, email=email, list=clients), '\n')
+                print('\n', deleteClient(email=email, list=clients), '\n')
             input("Pressione qualquer tecla para continuar")
        
     elif opc == '2':
-        while True:
-            menu_secundario('funcionários')
-            option = input('\nEscolha sua opção: ')
-
-            if option == '0':
-                break
-            
-            elif option == '1':
-                username = input('\nDigite o nome do funcionário: ')
-                email = input('Digite o email do funcionário: ')
-                contact = input('Digite o contato do funcionário: ')
-                password = input('Digite a senha do funcionário: ')
-                print('\n', Employees.createEmployee(username=username, email=email, contact=contact, password=password, list=employees), '\n')
-            
-            elif option == '2':
-                print(Employees.readAllEmployees(list=employees))
-            
-            elif option == '3':
-                email = input('Digite o email: ')
-                result = (Employees.readOneEmployee(email=email, list=employees))
-                if result == 'Funcionário não existente.':
-                    print('\n', result, '\n')
-                else:
-                    print(f'\nUsername: {result["value"][0]}')
-                    print(f'Email: {result["email"]}')
-                    print(f'Contato: {result["value"][1]}\n')
-                    # Não é mostrado a senha por questões de segurança
-            
-            elif option == '4':
-                searchEmail = input('Digite o email do funcionário que deseja alterar: ')
-
-                result = Employees.updateEmployee(self=Employees, searchEmail=searchEmail, list=employees)
-                print(f'\n{result}\n')            
-
-            elif option == '5':
-                email = input('Insira o email: ')
-                print('\n', Employees.deleteEmployee(self=Employees, email=email, list=employees), '\n')
-            input("Pressione qualquer tecla para continuar")
-    
-    elif opc == '3':
         while True:
             menu_secundario('celulares')
             option = input('\nEscolha sua opção: ')
@@ -136,7 +92,42 @@ while True:
             elif option == '1':
                 name = input('\nDigite o nome do celular:')
                 price = input('Digite o preço do celular: ')
-                print('\n', Cellphones.createCellphone(name=name, price=price, list=cellphones), '\n')
+                print('\n', createCellphone(name=name, price=price, list=cellphones), '\n')
+            
+            elif option == '2':
+                print(f'\n{readAllCellphones(cellphones)}\n')
+            
+            elif option == '3':
+                id = input('Digite o id do celular: ')
+                print(f'\n{readOneCellphone(id=id, list=cellphones)}\n')
+            
+            elif option == '4':
+                id = input('Digite o id: ')
+                result = getKey(list=cellphones, id=id)
+                if result == 'Celular não existente.':
+                    print(result)
+                else:
+                    name = input('Digite o nome: ')
+                    price = input('Digite o preço: ')
+                    print(f'\n{updateCellphone( id=id, name=name, price=price, list=cellphones)}\n')
+            
+            elif option == '5':
+                id = input('Digite o id do celular: ')
+                print(f'\n{deleteCellphone(id=id, list=cellphones)}\n')
+            input("Tecle ENTER para continuar")
+
+    elif opc == '3':
+        while True:
+            menu_secundario('vendas')
+            option = input('\nEscolha sua opção: ')
+
+            if option == '0':
+                break
+            
+            elif option == '1':
+                email = input('\nDigite o email do cliente:')
+                id = input('Digite o id do produto')
+                print('\n', Cellphones.createOrder(id=id, clientEmail=email, list=cellphones), '\n')
             
             elif option == '2':
                 print(f'\n{Cellphones.readAllCellphones(cellphones)}\n')
@@ -161,41 +152,6 @@ while True:
             input("Tecle ENTER para continuar")
 
     elif opc == '4':
-        while True:
-            menu_secundario('vendas')
-            option = input('\nEscolha sua opção: ')
-
-            if option == '0':
-                break
-            
-            elif option == '1':
-                name = input('\nDigite o nome do celular:')
-                price = input('Digite o preço do celular: ')
-                print('\n', Cellphones.createCellphone(name=name, price=price, list=cellphones), '\n')
-            
-            elif option == '2':
-                print(f'\n{Cellphones.readAllCellphones(cellphones)}\n')
-            
-            elif option == '3':
-                id = input('Digite o id do celular: ')
-                print(f'\n{Cellphones.readOneCellphone(id=id, list=cellphones)}\n')
-            
-            elif option == '4':
-                id = input('Digite o id: ')
-                result = Cellphones.getKey(list=cellphones, id=id)
-                if result == 'Celular não existente.':
-                    print(result)
-                else:
-                    name = input('Digite o nome: ')
-                    price = input('Digite o preço: ')
-                    print(f'\n{Cellphones.updateCellphone(self=Cellphones, id=id, name=name, price=price, list=cellphones)}\n')
-            
-            elif option == '5':
-                id = input('Digite o id do celular: ')
-                print(f'\n{Cellphones.deleteCellphone(self=Cellphones, id=id, list=cellphones)}\n')
-            input("Tecle ENTER para continuar")
-
-    elif opc == '5':
         print('\n\nPyPhone')
         print('\nPrograma desenvolvido para a terceira unidade da disciplina')
         print('Algoritmos e Lógica de Programação. O software simula um ge-')
