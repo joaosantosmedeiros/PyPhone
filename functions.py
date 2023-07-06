@@ -103,6 +103,100 @@ def deleteCellphone(id, list:dict):
 
 
 # Vendas
-def createOrder(email, list:dict, cellphones:dict, clients:dict):
-    client = readOneClient(email=email, list=clients)
-    return client
+def getOrderKey(list:dict, id):
+    if len(list) > 0:
+        for key in list:
+            if str(key) == id:
+                return key
+    return('Venda não existente.')
+
+def createOrder(clientEmail, productId, list:dict):
+    cont = 0
+    clientsFile = open('clients.txt')
+    for linha in clientsFile:
+        email = linha.split("Email: ")[1]
+        email = email.replace('\n', '')
+        if email == clientEmail:
+            cont = 1
+            break
+
+    if cont != 1:
+        return 'Cliente nao encontrado.'
+    clientsFile.close()
+
+
+    cellphonesFile = open('cellphones.txt')
+    cont = 0
+    for linha in cellphonesFile:
+        id = linha.split("Id: ")[1].split(" ||")[0].replace('\n', '')
+        if id == productId:
+            cont = 1
+            break
+
+    if cont != 1:
+        return 'Produto nao encontrado.'
+    cellphonesFile.close()
+
+    
+    randomId = randint(0, 99999999)
+    list[randomId] = [clientEmail, productId]
+    return f'Venda de Id: {randomId} criada!'
+
+def readAllOrders(list:dict):
+    if len(list) > 0:
+        result = ''
+        for key in list:
+            result += (f'Id: {key} || Cliente: {list[key][0]} || Produto: {list[key][1]}\n')
+        return result
+    else:
+        return ''
+
+def readOneOrder(list:dict, id):
+    if len(list) > 0:
+        cont = 0
+        for key in list:
+            if str(key) == id:
+                cont += 1
+                return(f'Id: {key}\nEmail: {list[key][0]}\nProduto: {list[key][1]}')
+    return('Venda não existente.')
+
+def updateOrder(id, email, productId, list:dict):
+    id = int(id)
+
+    cont = 0
+    clientsFile = open('clients.txt')
+    for linha in clientsFile:
+        fileEmail = linha.split("Email: ")[1].replace('\n', '')
+        if fileEmail == email:
+            cont = 1
+            break
+
+    if cont != 1:
+        return 'Cliente nao encontrado.'
+    clientsFile.close()
+
+
+    cellphonesFile = open('cellphones.txt')
+    cont = 0
+    for linha in cellphonesFile:
+        fileId = linha.split("Id: ")[1].split(" ||")[0].replace('\n', '')
+        if fileId == productId:
+            cont = 1
+            break
+
+    if cont != 1:
+        return 'Produto nao encontrado.'
+    cellphonesFile.close()
+
+    
+    list[id] = [email, productId]
+
+    return 'Venda atualizado com sucesso.'
+
+def deleteOrder(id, list:dict):
+    result = getOrderKey(id=id, list=list)
+    if result == 'Venda não existente.':
+        return result
+    
+    list.pop(result)
+    return 'Venda deletado com sucesso.'

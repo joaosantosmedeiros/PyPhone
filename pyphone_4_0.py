@@ -1,7 +1,7 @@
 from os import system
 from functions import createClient, readAllClients, readOneClient, updateClient, deleteClient
 from functions import createCellphone, readOneCellphone, readAllCellphones, getKey, updateCellphone, deleteCellphone
-from functions import createOrder
+from functions import createOrder, readOneOrder, readAllOrders, updateOrder, getOrderKey, deleteOrder
 
 def menu_principal():
     print("===================================================")
@@ -137,30 +137,32 @@ while True:
                 break
             
             elif option == '1':
-                email = input('\nDigite o email do cliente:')
-                id = input('Digite o id do produto')
-                print('\n', createOrder(email=email, list=orders, cellphones=cellphones, clients=clients), '\n')
-            
+                clientEmail = input('\nDigite o email do cliente: ')
+                id = input('Digite o id do produto: ')
+                
+                print('\n', createOrder(clientEmail=clientEmail, productId=id, list=orders))
+
             elif option == '2':
-                print(f'\n{readAllCellphones(cellphones)}\n')
-            
+                print(f'\n{readAllOrders(orders)}')
+
             elif option == '3':
-                id = input('Digite o id do celular: ')
-                print(f'\n{readOneCellphone(id=id, list=cellphones)}\n')
+                id = input('Digite o id do pedido: ')
+                print(f'\n{readOneOrder(id=id, list=orders)}\n')
             
             elif option == '4':
                 id = input('Digite o id: ')
-                result = getKey(list=cellphones, id=id)
-                if result == 'Celular não existente.':
+                result = getOrderKey(list=orders    , id=id)
+                if result == 'Venda não existente.':
                     print(result)
                 else:
-                    name = input('Digite o nome: ')
-                    price = input('Digite o preço: ')
-                    print(f'\n{updateCellphone(id=id, name=name, price=price, list=cellphones)}\n')
-            
+                    email = input('Digite o email: ')
+                    productId = input('Digite o id do produto: ')
+                    print(f'\n{updateOrder( id=id, email=email, productId=productId, list=orders)}\n')
+
             elif option == '5':
-                id = input('Digite o id do celular: ')
-                print(f'\n{deleteCellphone(id=id, list=cellphones)}\n')
+                id = input('Digite o id do pedido: ')
+                print(f'\n{deleteOrder(id=id, list=orders)}\n')
+      
             input("Tecle ENTER para continuar")
 
     elif opc == '4':
